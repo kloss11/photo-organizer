@@ -14,6 +14,8 @@ Sorts your media into clean `YYYY/MM/DD` folders. Runs on **Windows, macOS and L
 [![Build](https://img.shields.io/github/actions/workflow/status/kloss11/photo-organizer/ci.yml?label=build)](https://github.com/kloss11/photo-organizer/actions)
 ![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
 
+🌐 **[Website &amp; downloads →](https://kloss11.github.io/photo-organizer/)**
+
 **English** · [Polski](README.pl.md)
 
 </div>

@@ -13,6 +13,8 @@ Przenosi pliki do czytelnych folderów `RRRR/MM/DD`. Działa na **Windows, macOS
 [![Najnowsze wydanie](https://img.shields.io/github/v/release/kloss11/photo-organizer)](https://github.com/kloss11/photo-organizer/releases/latest)
 ![Platformy](https://img.shields.io/badge/platforma-Windows%20%7C%20macOS%20%7C%20Linux-blue)
 
+🌐 **[Strona &amp; pobieranie →](https://kloss11.github.io/photo-organizer/)**
+
 [English](README.md) · **Polski**
 
 </div>
