@@ -1,21 +1,123 @@
+<div align="center">
+
+<img src="PhotoOrganizer.App/Assets/logo.png" width="96" alt="PhotoOrganizer logo">
+
 # PhotoOrganizer
 
-Porządkuje zdjęcia i wideo według **daty wykonania**, przenosząc je do folderów `RRRR/MM/DD`
-(rok / rok+miesiąc / rok+miesiąc+dzień). Działa na **Windows, macOS i Linux** (Avalonia, .NET 10).
-Bezpieczny schemat pracy: **Podgląd (dry-run) → Zastosuj → Cofnij**.
+**Organize your photos and videos by the date they were taken — safely.**
 
-Interfejs dostępny w 6 językach: **Polski, English, Deutsch, Русский, Español, Français**.
+Sorts your media into clean `YYYY/MM/DD` folders. Runs on **Windows, macOS and Linux**.
+**100% offline** — your files never leave your computer. Free & open source.
+
+[![License](https://img.shields.io/github/license/kloss11/photo-organizer)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/kloss11/photo-organizer)](https://github.com/kloss11/photo-organizer/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/kloss11/photo-organizer/ci.yml?label=build)](https://github.com/kloss11/photo-organizer/actions)
+![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
+
+**English** · [Polski](README.pl.md)
+
+</div>
+
+<!-- TODO: add a demo GIF here (e.g. docs/demo.gif) showing Preview → Apply → Undo -->
 
 ---
 
-## Instalacja
+## Why PhotoOrganizer?
 
-Aplikacja jest **self-contained** i **jednoplikowa** — nie wymaga instalowania .NET u użytkownika.
-Artefakty budują skrypty z katalogu [`packaging/`](packaging/README.md) (wymagany .NET 10 SDK do budowania).
+Thousands of photos and videos scattered across folders, camera dumps and phone backups — with dates buried in metadata. PhotoOrganizer reads the **real capture date** of each file and moves it into a tidy, predictable folder structure.
 
-### Szybkie budowanie jednoplikowe (wszystkie platformy)
+- 🛡️ **Safe by design** — always **preview** the full plan first (nothing is moved), then **apply**, and **undo** the last run at any time.
+- 🔒 **Private** — everything runs locally. No cloud, no upload, no account.
+- 🖥️ **Cross-platform** — one app for Windows, macOS and Linux.
+- 🌍 **6 languages** — Polski, English, Deutsch, Русский, Español, Français.
+- 🎯 **Smart date detection** — EXIF, video metadata, file dates, and even dates embedded in file names.
 
-Same pliki wykonywalne można zbudować **cross-platform z dowolnego systemu** — jedną pętlą:
+---
+
+## Download
+
+Grab the latest ready-to-run version — **no installation, no .NET required** (self-contained single file):
+
+| Platform | Download |
+|---|---|
+| 🪟 **Windows** (x64) | [PhotoOrganizer-windows-x64.zip](https://github.com/kloss11/photo-organizer/releases/latest/download/PhotoOrganizer-windows-x64.zip) |
+| 🐧 **Linux** (x64) | [PhotoOrganizer-linux-x64.zip](https://github.com/kloss11/photo-organizer/releases/latest/download/PhotoOrganizer-linux-x64.zip) |
+| 🍎 **macOS** (Apple Silicon) | [PhotoOrganizer-macos-arm64.zip](https://github.com/kloss11/photo-organizer/releases/latest/download/PhotoOrganizer-macos-arm64.zip) |
+| 🍎 **macOS** (Intel) | [PhotoOrganizer-macos-x64.zip](https://github.com/kloss11/photo-organizer/releases/latest/download/PhotoOrganizer-macos-x64.zip) |
+
+All releases: **[github.com/kloss11/photo-organizer/releases](https://github.com/kloss11/photo-organizer/releases)**
+
+**First run:**
+- **Windows** — unzip and double-click `PhotoOrganizer.App.exe`. The app is not code-signed yet, so Windows SmartScreen may warn about an "unknown publisher" — click **More info → Run anyway**.
+- **macOS** — unzip, then right-click the app → **Open** the first time to bypass Gatekeeper (unsigned build).
+- **Linux** — unzip, then make it executable: `chmod +x PhotoOrganizer.App` and run it.
+
+---
+
+## How to use
+
+1. **Launch the app.** Pick your interface **language** in the top-right corner.
+2. **Choose a working folder** in one of three ways:
+   - the **"Choose folder…"** button,
+   - **drag & drop** a folder onto the window,
+   - a **gesture** (Windows): **hold `Esc` and left-click** inside a File Explorer window to grab the folder currently open there. *(macOS: same, after granting permissions; Linux: no gesture.)*
+3. **Set your options:**
+
+   | Option | Values | Default | Effect |
+   |---|---|---|---|
+   | **Granularity** | Year / Year+month / Year+month+day | Year+month | Folder depth: `2024`, `2024/03`, `2024/03/15` |
+   | **Name collisions** | Skip / Overwrite | Skip | What to do when a file of the same name already exists at the target |
+   | **Scan scope** | Recursive / Top level only | Recursive | Whether to descend into subfolders |
+   | **Undated files** | Move to "Undated" / Skip | Move to "Undated" | What happens to files with no determinable date |
+   | **Zero-pad (03)** | on / off | on | `03` instead of `3` for month/day (year is always 4 digits) |
+
+4. **Click "Preview (dry-run)".** Nothing is moved — you get a plan table with columns **File · Date · Source · Action · Target folder**. The *Source* column shows where the date came from. A summary counts: *To move, Overwrites, Already in place, Collisions, Undated, Online-only.*
+5. **Review the plan**, then click **"Apply"** to actually move the files.
+6. **"Undo last operation"** restores files to their previous locations (including recovering overwritten files).
+
+### Safety behaviors
+
+- **Preview (dry-run)** changes nothing — you always see the plan before anything happens.
+- **Undo:** the operation log is stored in a `.photoorganizer` folder inside the working area; that folder is **never scanned** or moved.
+- **Collision → Skip:** the source file is left untouched. **Collision → Overwrite:** undo restores the previous content of the target file.
+- **Byte-identical duplicates** are skipped (no meaningful move).
+- **Online-only files** (OneDrive/cloud placeholders) are skipped by default — the app won't force them to download.
+- **Symbolic links** (files and folders) are skipped — protects against loops and escaping the working area.
+- **Sidecar files** are kept together with their main file and inherit its date.
+- Folders without permission, or that vanish mid-scan, are skipped rather than aborting the whole run.
+
+---
+
+## Supported formats
+
+**Photos:** `jpg`, `jpeg`, `png`, `tif`, `tiff`, `heic`, `heif`, `cr2`, `nef`, `arw`, `dng`
+
+**Videos:** `mp4`, `mov`, `m4v`, `avi`, `mts`, `m2ts`, `3gp`
+
+**Sidecar files** — grouped with the main file: `xmp`, `aae`, `thm`
+
+### How the capture date is determined
+
+The app tries these sources in order (first hit wins):
+
+1. **EXIF – DateTimeOriginal** (original photo date),
+2. **EXIF – DateTimeDigitized** (digitized date),
+3. **QuickTime "Created"** (for mp4/mov video),
+4. **file last-write date**,
+5. **file creation date**,
+6. **date from the file name** — patterns like `IMG_20230415_123456`, `VID-20230415-WA0012`, `2023-04-15 holiday`, `Screenshot_2023-04-15` (year-month-day order only),
+7. if nothing works → the file is treated as **"undated"** (per the *Undated files* option).
+
+**Plausibility window:** only dates between **1950-01-01 and today (+1 day margin)** are accepted. Out-of-range dates (e.g. the QuickTime **1904-01-01** epoch from a zeroed video "creation time", the FILETIME 1601 epoch, or future dates) are rejected and the chain falls through to the next source — so you never get folders like `1904/01`.
+
+> Metadata reading never aborts the run — corrupt or unusual metadata simply degrades to the next step in the chain.
+
+---
+
+## Build from source
+
+Requires the **.NET 10 SDK**. You can cross-build every platform from any OS:
+
 ```bash
 for rid in win-x64 linux-x64 osx-x64 osx-arm64; do
   dotnet publish PhotoOrganizer.App/PhotoOrganizer.App.csproj -c Release -r $rid \
@@ -23,137 +125,24 @@ for rid in win-x64 linux-x64 osx-x64 osx-arm64; do
     -o "bin/publish/$rid"
 done
 ```
-Wynik: jeden plik na platformę w `bin/publish/<rid>/` (`PhotoOrganizer.App.exe` dla Windows,
-`PhotoOrganizer.App` dla Linux/macOS). Na Linux/macOS po przeniesieniu nadaj bit wykonywalny:
-`chmod +x PhotoOrganizer.App`. To „gołe” binaria — pełną integrację z systemem (ikona w bundlu `.app`,
-AppImage) dają skrypty per platforma poniżej.
 
-### Windows
+Platform-specific packaging (Windows `.exe`, macOS `.app` bundle, Linux AppImage) lives in [`packaging/`](packaging/README.md). Run the tests with `dotnet test`.
 
-Budowanie artefaktu:
-```powershell
-pwsh packaging/windows/build-windows.ps1
-# wynik: bin/publish/win-x64/PhotoOrganizer.App.exe
-```
-
-Uruchomienie / instalacja:
-1. Skopiuj `PhotoOrganizer.App.exe` w dowolne miejsce (np. `C:\Program Files\PhotoOrganizer\`).
-2. Uruchom podwójnym kliknięciem. Nie trzeba nic instalować.
-3. Jeśli plik nie jest podpisany cyfrowo, SmartScreen może pokazać ostrzeżenie —
-   wybierz **Więcej informacji → Uruchom mimo to**.
-4. (Opcjonalnie) utwórz skrót na pulpicie / w menu Start, albo zbuduj instalator
-   (NSIS/Inno lub Avalonia **Parcel**).
-
-Ikona aplikacji jest osadzona w `.exe` i widoczna na pasku zadań oraz w pasku tytułu okna.
-
-### macOS
-
-Budowanie bundla (uruchom **na macOS**, wymaga Xcode do podpisu/notaryzacji):
-```bash
-bash packaging/macos/build-macos.sh osx-arm64   # lub: osx-x64
-# wynik: bin/bundle/PhotoOrganizer.app (z ikoną PhotoOrganizer.icns)
-```
-
-Instalacja / pierwsze uruchomienie:
-1. Przeciągnij `PhotoOrganizer.app` do folderu **Programy** (`/Applications`).
-2. Podpis (hardened runtime, **bez** App Sandbox) i notaryzacja — komendy wypisuje skrypt
-   po zakończeniu (wymagają konta Apple Developer). Bez podpisu przy pierwszym uruchomieniu
-   kliknij aplikację prawym przyciskiem → **Otwórz**, aby ominąć Gatekeeper.
-3. Przy pierwszym użyciu nadaj **dwa** uprawnienia (Ustawienia systemowe → Prywatność i bezpieczeństwo):
-   - **Dostępność (Accessibility)** — dla globalnego gestu,
-   - **Automatyzacja → Finder** — dla odczytu bieżącego folderu z Findera.
-
-### Linux
-
-Budowanie AppDir i AppImage (uruchom **na Linux**):
-```bash
-bash packaging/linux/build-linux.sh
-appimagetool bin/appdir/PhotoOrganizer.AppDir bin/PhotoOrganizer-x86_64.AppImage
-```
-
-Uruchomienie:
-```bash
-chmod +x PhotoOrganizer-x86_64.AppImage
-./PhotoOrganizer-x86_64.AppImage
-```
-- Preferuj **AppImage** (mniej piaskownicy niż Flatpak).
-- **Uwaga:** globalny gest „Esc + klik” **nie działa na Linux** (Wayland blokuje globalny input,
-  a menedżery plików nie udostępniają bieżącego folderu). Użyj ręcznego wyboru folderu lub przeciągnij
-  go do okna. Silnik porządkowania (podgląd → zastosuj → cofnij) działa tak samo jak na pozostałych systemach.
+The project follows a Clean Architecture layout (Domain / Application / Infrastructure / Presentation + per-platform adapters) and is fully covered by unit, integration, architecture and UI tests.
 
 ---
 
-## Instrukcja obsługi
+## Support
 
-1. **Uruchom aplikację.** W prawym górnym rogu możesz zmienić **język** interfejsu.
+PhotoOrganizer is **free and open source (MIT)**. If it saved you time and you'd like to support further development:
 
-2. **Wskaż folder roboczy** (sekcja *Folder roboczy*) na jeden z trzech sposobów:
-   - przycisk **„Wybierz folder…”**,
-   - **przeciągnij** folder z menedżera plików do okna aplikacji,
-   - **gest** (tylko Windows): **przytrzymaj `Esc` i kliknij lewym** w oknie Eksploratora — aplikacja
-     odczyta ścieżkę aktualnie otwartego folderu. (macOS: analogicznie, po nadaniu uprawnień; Linux: brak gestu.)
+<!-- TODO: replace with your Buy Me a Coffee link once the account is ready -->
+☕ **Buy Me a Coffee** — _link coming soon_
 
-3. **Ustaw opcje** (sekcja *Ustawienia*):
-   | Opcja | Wartości | Domyślnie | Efekt |
-   |---|---|---|---|
-   | **Granularność** | Rok / Rok i miesiąc / Rok, miesiąc i dzień | Rok i miesiąc | Głębokość folderów: `2024`, `2024/03`, `2024/03/15` |
-   | **Kolizje nazw** | Pomiń / Nadpisz | Pomiń | Co zrobić, gdy w folderze docelowym istnieje już plik o tej nazwie |
-   | **Zakres skanu** | Rekurencyjnie / Tylko najwyższy poziom | Rekurencyjnie | Czy wchodzić w podfoldery |
-   | **Pliki bez daty** | Przenieś do „Bez daty” / Pomiń | Przenieś do „Bez daty” | Los plików bez ustalonej daty |
-   | **Dopełniaj zerami (03)** | wł. / wył. | wł. | `03` zamiast `3` w miesiącu/dniu (rok zawsze 4-cyfrowy) |
-
-4. **Kliknij „Podgląd (dry-run)”.** Nic nie jest przenoszone — powstaje plan w tabeli z kolumnami:
-   **Plik · Data · Źródło · Akcja · Folder docelowy**. Kolumna *Źródło* pokazuje, skąd wzięto datę —
-   od EXIF, przez datę pliku, po datę z nazwy pliku (pełna lista i kolejność w sekcji
-   [*Skąd brana jest data wykonania*](#skąd-brana-jest-data-wykonania)). Podsumowanie zlicza:
-   *Do przeniesienia, Nadpisań, Już na miejscu, Kolizje, Bez daty, Tylko online*.
-
-5. **Sprawdź plan** i kliknij **„Zastosuj”**, aby faktycznie przenieść pliki.
-
-6. **„Cofnij ostatnią operację”** przywraca pliki na poprzednie miejsca (cofnięcie ostatniego uruchomienia,
-   łącznie z odtworzeniem plików nadpisanych).
-
-### Zachowania bezpieczeństwa
-
-- **Podgląd (dry-run)** niczego nie zmienia — zawsze możesz sprawdzić plan przed wykonaniem.
-- **Cofanie:** dziennik operacji zapisywany jest w folderze `.photoorganizer` wewnątrz obszaru roboczego;
-  ten folder **nigdy nie jest skanowany** ani przenoszony.
-- **Kolizja → Pomiń:** plik źródłowy pozostaje nietknięty. **Kolizja → Nadpisz:** cofanie odtwarza
-  poprzednią zawartość pliku docelowego.
-- **Duplikaty o identycznej treści** są pomijane (brak sensownego przeniesienia).
-- **Pliki „tylko online”** (placeholdery OneDrive/chmury) są domyślnie **pomijane** — aplikacja nie wymusza
-  ich pobrania.
-- **Dowiązania symboliczne** (pliki i katalogi) są pomijane — ochrona przed pętlami i wyjściem poza obszar roboczy.
-- **Pliki towarzyszące** (sidecar) trzymane są razem z plikiem głównym i dziedziczą jego datę.
-- Katalogi bez uprawnień lub znikające w trakcie skanu są pomijane, a nie przerywają całej operacji.
+You can also help by ⭐ starring the repo and reporting issues.
 
 ---
 
-## Obsługiwane formaty
+## License
 
-**Zdjęcia:** `jpg`, `jpeg`, `png`, `tif`, `tiff`, `heic`, `heif`, `cr2`, `nef`, `arw`, `dng`
-
-**Wideo:** `mp4`, `mov`, `m4v`, `avi`, `mts`, `m2ts`, `3gp`
-
-**Pliki towarzyszące (sidecar)** — grupowane z plikiem głównym: `xmp`, `aae`, `thm`
-
-### Skąd brana jest data wykonania
-
-Aplikacja próbuje ustalić datę w kolejności (pierwsze trafienie wygrywa):
-
-1. **EXIF – DateTimeOriginal** (oryginalna data zdjęcia),
-2. **EXIF – DateTimeDigitized** (data digitalizacji),
-3. **QuickTime „Created”** (dla wideo mp4/mov),
-4. **data ostatniego zapisu pliku**,
-5. **data utworzenia pliku**,
-6. **data z nazwy pliku** — rozpoznawane schematy typu `IMG_20230415_123456`, `VID-20230415-WA0012`,
-   `2023-04-15 wakacje`, `Screenshot_2023-04-15` (wyłącznie porządek rok-miesiąc-dzień),
-7. jeśli nic nie uda się ustalić → plik traktowany jest jako **„bez daty”** (zgodnie z opcją *Pliki bez daty*).
-
-**Okno wiarygodności:** akceptowane są wyłącznie daty z zakresu **1950-01-01 … dziś (+1 dzień marginesu)**.
-Data spoza okna (np. epoka QuickTime **1904-01-01** z wyzerowanego pola „creation time” w wideo,
-epoka FILETIME 1601, daty z przyszłości) jest odrzucana, a łańcuch przechodzi do kolejnego źródła —
-dzięki temu nie powstają foldery typu `1904/01`.
-
-> Odczyt metadanych nigdy nie przerywa działania — uszkodzone lub nietypowe metadane po prostu degradują
-> do kolejnego kroku łańcucha.
+Released under the [MIT License](LICENSE) — © 2026 Marcin Nadolny.
