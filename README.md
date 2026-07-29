@@ -20,7 +20,11 @@ Sorts your media into clean `YYYY/MM/DD` folders. Runs on **Windows, macOS and L
 
 </div>
 
-<!-- TODO: add a demo GIF here (e.g. docs/demo.gif) showing Preview → Apply → Undo -->
+<div align="center">
+
+![PhotoOrganizer demo — preview, apply, undo](docs/demo.gif)
+
+</div>
 
 ---
 

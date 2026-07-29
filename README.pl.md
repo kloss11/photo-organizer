@@ -17,6 +17,8 @@ Przenosi pliki do czytelnych folderów `RRRR/MM/DD`. Działa na **Windows, macOS
 
 [English](README.md) · **Polski**
 
+![PhotoOrganizer — demo (podgląd, zastosuj, cofnij)](docs/demo.gif)
+
 </div>
 
 ---
