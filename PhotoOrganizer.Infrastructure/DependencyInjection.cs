@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PhotoOrganizer.Application.Abstractions;
+using PhotoOrganizer.Infrastructure.Diagnostics;
 using PhotoOrganizer.Infrastructure.FileSystem;
 using PhotoOrganizer.Infrastructure.Metadata;
 using PhotoOrganizer.Infrastructure.Settings;
@@ -25,6 +26,9 @@ public static class DependencyInjection
 
         var settingsPath = configuration["PhotoOrganizer:SettingsPath"];
         services.AddSingleton<ISettingsStore>(_ => new JsonSettingsStore(settingsPath));
+
+        services.AddSingleton<IExternalLauncher, ExternalLauncher>();
+        services.AddSingleton<IAppDiagnostics, FileAppDiagnostics>();
 
         return services;
     }

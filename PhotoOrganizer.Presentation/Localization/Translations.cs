@@ -103,7 +103,30 @@ public static class Translations
         ["Act_SkipUndated"] = ["Pominięcie (brak daty)", "Skip (no date)", "Übersprungen (kein Datum)", "Пропуск (нет даты)", "Omitir (sin fecha)", "Ignoré (sans date)"],
         ["Act_SkipOnlineOnly"] = ["Pominięcie (tylko online)", "Skip (online-only)", "Übersprungen (nur online)", "Пропуск (только онлайн)", "Omitir (solo en línea)", "Ignoré (en ligne seulement)"],
         ["Act_SkipSymlink"] = ["Pominięcie (symlink)", "Skip (symlink)", "Übersprungen (Symlink)", "Пропуск (симлинк)", "Omitir (symlink)", "Ignoré (lien symbolique)"],
-        ["Act_AlreadyInPlace"] = ["Już na miejscu", "Already in place", "Bereits am Platz", "Уже на месте", "Ya en su sitio", "Déjà en place"]
+        ["Act_AlreadyInPlace"] = ["Już na miejscu", "Already in place", "Bereits am Platz", "Уже на месте", "Ya en su sitio", "Déjà en place"],
+
+        // Ekran „O programie" / zgłaszanie problemów / wsparcie
+        ["Btn_About"] = ["O programie", "About", "Über", "О программе", "Acerca de", "À propos"],
+        ["About_Title"] = ["O programie", "About", "Über PhotoOrganizer", "О программе", "Acerca de", "À propos"],
+        ["About_VersionFmt"] = ["Wersja {0}", "Version {0}", "Version {0}", "Версия {0}", "Versión {0}", "Version {0}"],
+        ["About_Description"] = [
+            "Porządkuje zdjęcia i wideo według daty — bezpiecznie i lokalnie.",
+            "Organizes your photos and videos by date — safely and locally.",
+            "Ordnet Fotos und Videos nach Datum — sicher und lokal.",
+            "Упорядочивает фото и видео по дате — безопасно и локально.",
+            "Organiza tus fotos y vídeos por fecha — de forma segura y local.",
+            "Organise vos photos et vidéos par date — en toute sécurité et en local."],
+        ["Btn_GitHub"] = ["Zobacz na GitHub", "View on GitHub", "Auf GitHub ansehen", "Открыть на GitHub", "Ver en GitHub", "Voir sur GitHub"],
+        ["Btn_ReportProblem"] = ["Zgłoś problem", "Report a problem", "Problem melden", "Сообщить о проблеме", "Informar de un problema", "Signaler un problème"],
+        ["Btn_OpenLogs"] = ["Otwórz folder logów", "Open logs folder", "Log-Ordner öffnen", "Открыть папку журналов", "Abrir carpeta de registros", "Ouvrir le dossier des journaux"],
+        ["About_License"] = [
+            "Darmowe i open source · Licencja MIT",
+            "Free & open source · MIT License",
+            "Kostenlos & Open Source · MIT-Lizenz",
+            "Бесплатно и с открытым кодом · Лицензия MIT",
+            "Gratis y de código abierto · Licencia MIT",
+            "Gratuit et open source · Licence MIT"],
+        ["Btn_Support"] = ["Wesprzyj ☕", "Support ☕", "Unterstützen ☕", "Поддержать ☕", "Apoyar ☕", "Soutenir ☕"]
     };
 
     /// <summary>Wszystkie klucze tłumaczeń (do walidacji kompletności).</summary>

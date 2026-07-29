@@ -66,4 +66,10 @@ public partial class MainWindow : Window
         if (!string.IsNullOrWhiteSpace(folder))
             vm.SetWorkingArea(folder);
     }
+
+    private void OnAbout(object? sender, RoutedEventArgs e)
+    {
+        var about = new AboutWindow { DataContext = DataContext };
+        _ = about.ShowDialog(this);
+    }
 }

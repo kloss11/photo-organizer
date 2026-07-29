@@ -30,6 +30,7 @@
             </DataTemplate>
           </ComboBox.ItemTemplate>
         </ComboBox>
+        <Button Content="{loc:Tr Btn_About}" Click="OnAbout"/>
       </StackPanel>
 
       <!-- Folder roboczy -->

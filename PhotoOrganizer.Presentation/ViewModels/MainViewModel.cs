@@ -18,6 +18,8 @@ public partial class MainViewModel : ObservableObject
     private readonly IPhotoOrganizer _organizer;
     private readonly ISettingsStore _settingsStore;
     private readonly IUndoLogStore _undoStore;
+    private readonly IExternalLauncher _launcher;
+    private readonly IAppDiagnostics _diagnostics;
 
     private OrganizeSettings _loadedSettings = new();
     private OrganizePlan? _currentPlan;
@@ -26,11 +28,14 @@ public partial class MainViewModel : ObservableObject
 
     private static Localizer Loc => Localizer.Instance;
 
-    public MainViewModel(IPhotoOrganizer organizer, ISettingsStore settingsStore, IUndoLogStore undoStore)
+    public MainViewModel(IPhotoOrganizer organizer, ISettingsStore settingsStore, IUndoLogStore undoStore,
+        IExternalLauncher launcher, IAppDiagnostics diagnostics)
     {
         _organizer = organizer;
         _settingsStore = settingsStore;
         _undoStore = undoStore;
+        _launcher = launcher;
+        _diagnostics = diagnostics;
 
         GranularityOptions = Enum.GetValues<DateGranularity>().Select(v => new LocalizedOption(v, EnumKeys.Of(v))).ToArray();
         CollisionOptions = Enum.GetValues<CollisionPolicy>().Select(v => new LocalizedOption(v, EnumKeys.Of(v))).ToArray();
@@ -238,5 +243,33 @@ public partial class MainViewModel : ObservableObject
         {
             IsBusy = false;
         }
+    }
+
+    // --- Ekran „O programie": wersja + akcje (GitHub, zgłoszenie błędu, folder logów) ---
+
+    private static readonly string VersionNumber = FormatVersion();
+
+    /// <summary>Tekst wersji do wyświetlenia, np. „Wersja 1.0.0" (zależny od bieżącego języka).</summary>
+    public string AppVersionDisplay => Loc.Format("About_VersionFmt", VersionNumber);
+
+    private static string FormatVersion()
+    {
+        var v = typeof(MainViewModel).Assembly.GetName().Version;
+        return v is null ? "1.0.0" : $"{v.Major}.{v.Minor}.{v.Build}";
+    }
+
+    [RelayCommand]
+    private void OpenGitHub() => _launcher.OpenUrl(AppLinks.Repository);
+
+    [RelayCommand]
+    private void ReportProblem() => _launcher.OpenUrl(BuildReportUrl());
+
+    [RelayCommand]
+    private void OpenLogsFolder() => _launcher.OpenFolder(_diagnostics.LogsDirectory);
+
+    private static string BuildReportUrl()
+    {
+        var os = OperatingSystem.IsWindows() ? "Windows" : OperatingSystem.IsMacOS() ? "macOS" : "Linux";
+        return $"{AppLinks.NewBugReport}&version={Uri.EscapeDataString(VersionNumber)}&os={Uri.EscapeDataString(os)}";
     }
 }

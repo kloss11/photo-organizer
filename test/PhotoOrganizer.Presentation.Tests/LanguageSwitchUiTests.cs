@@ -20,7 +20,8 @@ public sealed class LanguageSwitchUiTests
     [AvaloniaFact]
     public void Switching_language_updates_button_label_in_the_rendered_window()
     {
-        var viewModel = new MainViewModel(new FakeOrganizer(), new FakeSettingsStore(), new FakeUndoStore());
+        var viewModel = new MainViewModel(new FakeOrganizer(), new FakeSettingsStore(), new FakeUndoStore(),
+            new FakeLauncher(), new FakeDiagnostics());
         var window = new MainWindow { DataContext = viewModel };
         try
         {
@@ -75,5 +76,17 @@ public sealed class LanguageSwitchUiTests
             => throw new NotSupportedException();
         public Task<UndoLog?> LoadLatestAsync(FilePath workingArea, CancellationToken ct = default) => Task.FromResult<UndoLog?>(null);
         public Task<IReadOnlyList<UndoLog>> LoadAllAsync(FilePath workingArea, CancellationToken ct = default) => Task.FromResult<IReadOnlyList<UndoLog>>([]);
+    }
+
+    private sealed class FakeLauncher : IExternalLauncher
+    {
+        public void OpenUrl(string url) { }
+        public void OpenFolder(string path) { }
+    }
+
+    private sealed class FakeDiagnostics : IAppDiagnostics
+    {
+        public string LogsDirectory => Path.GetTempPath();
+        public void LogError(string context, Exception exception) { }
     }
 }
