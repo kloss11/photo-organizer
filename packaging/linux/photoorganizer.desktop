@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=PhotoOrganizer
+Comment=Porządkowanie zdjęć i wideo wg daty wykonania
+Exec=PhotoOrganizer.App
+Icon=photoorganizer
+Categories=Utility;Graphics;
+Terminal=false

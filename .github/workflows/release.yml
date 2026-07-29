@@ -1,0 +1,59 @@
+name: Release
+
+# Wytnij wersję: utwórz tag 'vX.Y.Z' i wypchnij go (git tag v1.0.0 && git push origin v1.0.0).
+# Workflow zbuduje binaria dla Windows / Linux / macOS i doda je do GitHub Release.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # wymagane do utworzenia Release i wgrania plików
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build self-contained binaries (all platforms)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $map = [ordered]@{
+            'win-x64'   = 'windows-x64'
+            'linux-x64' = 'linux-x64'
+            'osx-x64'   = 'macos-x64'
+            'osx-arm64' = 'macos-arm64'
+          }
+          New-Item -ItemType Directory -Force dist | Out-Null
+          foreach ($rid in $map.Keys) {
+            $out = "publish/$rid"
+            Write-Host "::group::publish $rid"
+            dotnet publish PhotoOrganizer.App/PhotoOrganizer.App.csproj `
+              -c Release -r $rid --self-contained true `
+              -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
+              -p:DebugType=none -p:DebugSymbols=false `
+              -o $out
+            if ($LASTEXITCODE -ne 0) { throw "publish failed for $rid" }
+            Remove-Item "$out/*.pdb" -ErrorAction SilentlyContinue
+            Copy-Item LICENSE  $out -ErrorAction SilentlyContinue
+            Copy-Item README.md $out -ErrorAction SilentlyContinue
+            $zip = "dist/PhotoOrganizer-$($map[$rid]).zip"
+            Compress-Archive -Path "$out/*" -DestinationPath $zip -Force
+            Write-Host "::endgroup::"
+          }
+          Get-ChildItem dist
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          generate_release_notes: true
+          fail_on_unmatched_files: true

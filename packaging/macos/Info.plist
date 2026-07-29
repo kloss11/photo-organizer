@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>PhotoOrganizer</string>
+    <key>CFBundleDisplayName</key>
+    <string>PhotoOrganizer</string>
+    <key>CFBundleIdentifier</key>
+    <string>io.github.kloss11.photoorganizer</string>
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleExecutable</key>
+    <string>PhotoOrganizer.App</string>
+    <key>CFBundleIconFile</key>
+    <string>PhotoOrganizer.icns</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.15</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <!-- Wymagane, aby aplikacja mogła prosić o zgodę Automation na sterowanie Finderem (odczyt folderu). -->
+    <key>NSAppleEventsUsageDescription</key>
+    <string>PhotoOrganizer odczytuje ścieżkę bieżącego folderu z Findera, aby wskazać obszar roboczy do porządkowania zdjęć i wideo.</string>
+</dict>
+</plist>

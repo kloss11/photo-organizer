@@ -1,0 +1,19 @@
+# .NET build output
+bin/
+obj/
+
+# IDE / editor
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Publish / packaging artifacts
+[Pp]ublish/
+*.appimage
+*.AppImage

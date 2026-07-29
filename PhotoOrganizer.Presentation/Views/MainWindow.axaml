@@ -1,0 +1,130 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:PhotoOrganizer.Presentation.ViewModels"
+        xmlns:loc="clr-namespace:PhotoOrganizer.Presentation.Localization"
+        x:Class="PhotoOrganizer.Presentation.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Width="960" Height="700"
+        MinWidth="760" MinHeight="540"
+        DragDrop.AllowDrop="True"
+        Title="{loc:Tr App_Title}">
+
+  <DockPanel Margin="16">
+
+    <!-- Pasek statusu (dół) -->
+    <StackPanel DockPanel.Dock="Bottom" Margin="0,10,0,0">
+      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" Height="4" Margin="0,0,0,6"/>
+      <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap" Opacity="0.8"/>
+    </StackPanel>
+
+    <!-- Górna sekcja -->
+    <StackPanel DockPanel.Dock="Top" Spacing="12">
+
+      <!-- Wybór języka (prawy górny róg) -->
+      <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+        <TextBlock Text="{loc:Tr Label_Language}" VerticalAlignment="Center" Opacity="0.8"/>
+        <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" MinWidth="140">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:LanguageChoice">
+              <TextBlock Text="{Binding Name}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+
+      <!-- Folder roboczy -->
+      <Border Background="#14000000" CornerRadius="8" Padding="12">
+        <StackPanel Spacing="8">
+          <TextBlock Text="{loc:Tr Section_WorkingArea}" FontWeight="Bold"/>
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button Content="{loc:Tr Btn_PickFolder}" Click="OnPickFolder"/>
+            <TextBlock Text="{Binding WorkingAreaPath, FallbackValue=''}" VerticalAlignment="Center" Opacity="0.85"/>
+          </StackPanel>
+          <TextBlock Text="{loc:Tr Hint_Gesture}" FontSize="12" Opacity="0.6" TextWrapping="Wrap"/>
+        </StackPanel>
+      </Border>
+
+      <!-- Ustawienia -->
+      <Border Background="#14000000" CornerRadius="8" Padding="12">
+        <StackPanel Spacing="10">
+          <TextBlock Text="{loc:Tr Section_Settings}" FontWeight="Bold"/>
+          <StackPanel Orientation="Horizontal" Spacing="18">
+            <StackPanel Spacing="4">
+              <TextBlock Text="{loc:Tr Label_Granularity}" Opacity="0.8"/>
+              <ComboBox ItemsSource="{Binding GranularityOptions}" SelectedItem="{Binding SelectedGranularity}" MinWidth="190">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="vm:LocalizedOption"><TextBlock Text="{Binding Display}"/></DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+            <StackPanel Spacing="4">
+              <TextBlock Text="{loc:Tr Label_Collision}" Opacity="0.8"/>
+              <ComboBox ItemsSource="{Binding CollisionOptions}" SelectedItem="{Binding SelectedCollision}" MinWidth="140">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="vm:LocalizedOption"><TextBlock Text="{Binding Display}"/></DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+            <StackPanel Spacing="4">
+              <TextBlock Text="{loc:Tr Label_ScanScope}" Opacity="0.8"/>
+              <ComboBox ItemsSource="{Binding ScanScopeOptions}" SelectedItem="{Binding SelectedScanScope}" MinWidth="180">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="vm:LocalizedOption"><TextBlock Text="{Binding Display}"/></DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+            <StackPanel Spacing="4">
+              <TextBlock Text="{loc:Tr Label_Undated}" Opacity="0.8"/>
+              <ComboBox ItemsSource="{Binding UndatedOptions}" SelectedItem="{Binding SelectedUndated}" MinWidth="180">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="vm:LocalizedOption"><TextBlock Text="{Binding Display}"/></DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+            <StackPanel Spacing="4" VerticalAlignment="Bottom">
+              <CheckBox Content="{loc:Tr Label_ZeroPad}" IsChecked="{Binding ZeroPadded}"/>
+            </StackPanel>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Akcje -->
+      <StackPanel Orientation="Horizontal" Spacing="10">
+        <Button Content="{loc:Tr Btn_Preview}" Command="{Binding PreviewCommand}"/>
+        <Button x:Name="ApplyButton" Content="{loc:Tr Btn_Apply}" Command="{Binding ApplyCommand}"/>
+        <Button Content="{loc:Tr Btn_Undo}" Command="{Binding UndoCommand}"/>
+      </StackPanel>
+
+      <TextBlock Text="{Binding Summary}" TextWrapping="Wrap" FontWeight="SemiBold"/>
+    </StackPanel>
+
+    <!-- Lista podglądu -->
+    <Border BorderBrush="#33808080" BorderThickness="1" CornerRadius="8" Margin="0,12,0,0">
+      <DockPanel>
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="2*,*,*,2*,3*" Background="#22808080">
+          <TextBlock Grid.Column="0" Text="{loc:Tr Col_File}" FontWeight="Bold" Margin="8,6"/>
+          <TextBlock Grid.Column="1" Text="{loc:Tr Col_Date}" FontWeight="Bold" Margin="8,6"/>
+          <TextBlock Grid.Column="2" Text="{loc:Tr Col_Source}" FontWeight="Bold" Margin="8,6"/>
+          <TextBlock Grid.Column="3" Text="{loc:Tr Col_Action}" FontWeight="Bold" Margin="8,6"/>
+          <TextBlock Grid.Column="4" Text="{loc:Tr Col_Target}" FontWeight="Bold" Margin="8,6"/>
+        </Grid>
+        <ScrollViewer>
+          <ItemsControl ItemsSource="{Binding PreviewRows}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:PlannedMoveRow">
+                <Grid ColumnDefinitions="2*,*,*,2*,3*" Margin="0,1">
+                  <TextBlock Grid.Column="0" Text="{Binding FileName}" Margin="8,3" TextTrimming="CharacterEllipsis"/>
+                  <TextBlock Grid.Column="1" Text="{Binding Date}" Margin="8,3"/>
+                  <TextBlock Grid.Column="2" Text="{Binding DateSource}" Margin="8,3" Opacity="0.8"/>
+                  <TextBlock Grid.Column="3" Text="{Binding Action}" Margin="8,3"/>
+                  <TextBlock Grid.Column="4" Text="{Binding TargetFolder}" Margin="8,3" Opacity="0.8" TextTrimming="CharacterEllipsis"/>
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+
+  </DockPanel>
+</Window>

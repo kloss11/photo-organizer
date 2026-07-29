@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/test/">
+    <Project Path="test/PhotoOrganizer.Application.UnitTests/PhotoOrganizer.Application.UnitTests.csproj" />
+    <Project Path="test/PhotoOrganizer.ArchitectureTests/PhotoOrganizer.ArchitectureTests.csproj" />
+    <Project Path="test/PhotoOrganizer.Domain.UnitTests/PhotoOrganizer.Domain.UnitTests.csproj" />
+    <Project Path="test/PhotoOrganizer.Infrastructure.IntegrationTests/PhotoOrganizer.Infrastructure.IntegrationTests.csproj" />
+    <Project Path="test/PhotoOrganizer.Platform.Tests/PhotoOrganizer.Platform.Tests.csproj" />
+    <Project Path="test/PhotoOrganizer.Presentation.Tests/PhotoOrganizer.Presentation.Tests.csproj" />
+  </Folder>
+  <Project Path="PhotoOrganizer.App/PhotoOrganizer.App.csproj" />
+  <Project Path="PhotoOrganizer.Application/PhotoOrganizer.Application.csproj" />
+  <Project Path="PhotoOrganizer.Domain/PhotoOrganizer.Domain.csproj" />
+  <Project Path="PhotoOrganizer.Infrastructure/PhotoOrganizer.Infrastructure.csproj" />
+  <Project Path="PhotoOrganizer.Platform.Abstractions/PhotoOrganizer.Platform.Abstractions.csproj" />
+  <Project Path="PhotoOrganizer.Platform.Linux/PhotoOrganizer.Platform.Linux.csproj" />
+  <Project Path="PhotoOrganizer.Platform.MacOS/PhotoOrganizer.Platform.MacOS.csproj" />
+  <Project Path="PhotoOrganizer.Platform.Shared/PhotoOrganizer.Platform.Shared.csproj" />
+  <Project Path="PhotoOrganizer.Platform.Windows/PhotoOrganizer.Platform.Windows.csproj" />
+  <Project Path="PhotoOrganizer.Presentation/PhotoOrganizer.Presentation.csproj" />
+</Solution>
