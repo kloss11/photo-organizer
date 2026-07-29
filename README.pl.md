@@ -124,7 +124,7 @@ PhotoOrganizer jest **darmowy i open source (MIT)**. Jeśli zaoszczędził Ci cz
 <!-- TODO: podmień na link Buy Me a Coffee po założeniu konta -->
 ☕ **Buy Me a Coffee** — _link wkrótce_
 
-Możesz też pomóc: ⭐ zostaw gwiazdkę i zgłaszaj błędy.
+Znalazłeś błąd? **[Zgłoś go tutaj](https://github.com/kloss11/photo-organizer/issues/new?template=bug_report.yml)**. Możesz też pomóc: ⭐ zostaw gwiazdkę.
 
 ---
 

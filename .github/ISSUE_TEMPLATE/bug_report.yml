@@ -1,0 +1,46 @@
+name: Bug report
+description: Report a problem with PhotoOrganizer
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for reporting a bug! Please fill in the details below so it can be reproduced and fixed."
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What went wrong, and what did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a folder ...
+        2. Click "Preview (dry-run)" ...
+        3. ...
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      placeholder: "e.g. 1.0.0 — see the About screen"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error message / log file
+      description: "Paste any error shown in the app, or attach the log file (in the app: About → Open logs folder)."
+      render: shell
