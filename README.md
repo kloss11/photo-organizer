@@ -138,8 +138,7 @@ The project follows a Clean Architecture layout (Domain / Application / Infrastr
 
 PhotoOrganizer is **free and open source (MIT)**. If it saved you time and you'd like to support further development:
 
-<!-- TODO: replace with your Buy Me a Coffee link once the account is ready -->
-☕ **Buy Me a Coffee** — _link coming soon_
+☕ **[Buy Me a Coffee](https://buymeacoffee.com/kloss)** — thank you!
 
 Found a bug? Please **[report it here](https://github.com/kloss11/photo-organizer/issues/new?template=bug_report.yml)**. You can also help by ⭐ starring the repo.
 

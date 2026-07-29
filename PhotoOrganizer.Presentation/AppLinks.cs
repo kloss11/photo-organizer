@@ -8,6 +8,6 @@ public static class AppLinks
     /// <summary>Nowe zgłoszenie błędu (formularz). Aplikacja dokleja &amp;version= i &amp;os=.</summary>
     public const string NewBugReport = "https://github.com/kloss11/photo-organizer/issues/new?template=bug_report.yml";
 
-    // TODO: ustawić po utworzeniu konta Buy Me a Coffee, a następnie dodać przycisk „Wesprzyj" (Btn_Support).
-    public const string? Support = null;
+    /// <summary>Buy Me a Coffee — dobrowolne wsparcie (aplikacja jest darmowa).</summary>
+    public const string Support = "https://buymeacoffee.com/kloss";
 }

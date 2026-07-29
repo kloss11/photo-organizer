@@ -121,8 +121,7 @@ Pakowanie per platforma (Windows `.exe`, macOS `.app`, Linux AppImage) jest w [`
 
 PhotoOrganizer jest **darmowy i open source (MIT)**. Jeśli zaoszczędził Ci czas i chcesz wesprzeć dalszy rozwój:
 
-<!-- TODO: podmień na link Buy Me a Coffee po założeniu konta -->
-☕ **Buy Me a Coffee** — _link wkrótce_
+☕ **[Buy Me a Coffee](https://buymeacoffee.com/kloss)** — dziękuję!
 
 Znalazłeś błąd? **[Zgłoś go tutaj](https://github.com/kloss11/photo-organizer/issues/new?template=bug_report.yml)**. Możesz też pomóc: ⭐ zostaw gwiazdkę.
 

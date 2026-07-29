@@ -267,6 +267,9 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void OpenLogsFolder() => _launcher.OpenFolder(_diagnostics.LogsDirectory);
 
+    [RelayCommand]
+    private void OpenSupport() => _launcher.OpenUrl(AppLinks.Support);
+
     private static string BuildReportUrl()
     {
         var os = OperatingSystem.IsWindows() ? "Windows" : OperatingSystem.IsMacOS() ? "macOS" : "Linux";
