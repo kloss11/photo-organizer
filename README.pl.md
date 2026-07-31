@@ -17,7 +17,9 @@ Przenosi pliki do czytelnych folderów `RRRR/MM/DD`. Działa na **Windows, macOS
 
 [English](README.md) · **Polski**
 
-![PhotoOrganizer — demo (podgląd, zastosuj, cofnij)](docs/demo.gif)
+[![PhotoOrganizer — zobacz demo](docs/demo-poster.png)](https://kloss11.github.io/photo-organizer/)
+
+▶ **[Obejrzyj minutowe demo z narracją](https://kloss11.github.io/photo-organizer/)**
 
 </div>
 

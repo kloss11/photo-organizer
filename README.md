@@ -22,7 +22,9 @@ Sorts your media into clean `YYYY/MM/DD` folders. Runs on **Windows, macOS and L
 
 <div align="center">
 
-![PhotoOrganizer demo — preview, apply, undo](docs/demo.gif)
+[![PhotoOrganizer — watch the demo](docs/demo-poster.png)](https://kloss11.github.io/photo-organizer/)
+
+▶ **[Watch the 1-minute demo, with narration](https://kloss11.github.io/photo-organizer/)**
 
 </div>
 
